@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Category from "./components/Category";
 import Menu from "./components/Menu";
 
-function App(): JSX.Element {
+export default function App(): JSX.Element {
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -22,7 +22,6 @@ function App(): JSX.Element {
           <button onClick={() => handleScroll("up")}>🔽</button>
           <Category />
           <Category />
-
           <button onClick={() => handleScroll("down")}>🔽</button>
         </div>
       </div>
@@ -36,7 +35,7 @@ function App(): JSX.Element {
             </div>
             <div className="bg-blue-200">
               <button onClick={() => setShowStatus(!showStatus)}>
-                Show Order Status
+                주문 완료
               </button>
               {showStatus && (
                 <>
@@ -46,6 +45,9 @@ function App(): JSX.Element {
                     {/* 계산 박스 */}
                     <button onClick={() => setShowStatus(!showStatus)}>
                       닫기
+                    </button>
+                    <button>
+                      주문 완료
                     </button>
                   </div>
                 </>
@@ -63,4 +65,3 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
