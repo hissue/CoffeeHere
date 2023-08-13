@@ -1,65 +1,25 @@
 import React from 'react';
+import image from '../assets/image/coffee.jpg';
 
 export default function Menu() {
+    const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        const target = e.target as HTMLImageElement;
+        target.src = "https://cdn-icons-png.flaticon.com/512/4062/4062340.png";
+    };
+
     return (
-        <div className='flex'>
-            <div className="rounded-2xl border border-gray-200 bg-white m-4">
+        <div className='m-5'>
+            <div className='relative rounded-2xl border border-yellow-500 bg-white'>
                 <img
-                    src="https://www.coffeebeankorea.com/data/menu/%EC%B9%B4%ED%91%B8%EC%B9%98%EB%85%B8_1.jpg"
-                    alt=""
-                className="rounded-2xl"
+                    src={image}
+                    alt='target'
+                    onError={handleImgError}
+                    className='rounded-3xl p-5'
                 />
-
-                {/* 상품 이름 */}
-                <div className="flex flex-1 flex-col space-y-2 p-4 ">
-                    <h3 className="text-lg text-gray-900">
-                        Americano
-                    </h3>
-                </div>
-            </div>
-            <div className="rounded-2xl border border-gray-200 bg-white m-4">
-                <img
-                    src="https://www.coffeebeankorea.com/data/menu/%EC%B9%B4%ED%91%B8%EC%B9%98%EB%85%B8_1.jpg"
-                    alt=""
-                className="rounded-2xl"
-                />
-
-                {/* 상품 이름 */}
-                <div className="flex flex-1 flex-col space-y-2 p-4 ">
-                    <h3 className="text-lg text-gray-900">
-                        Americano
-                    </h3>
-                </div>
-            </div>
-            <div className="rounded-2xl border border-gray-200 bg-white m-4">
-                <img
-                    src="https://www.coffeebeankorea.com/data/menu/%EC%B9%B4%ED%91%B8%EC%B9%98%EB%85%B8_1.jpg"
-                    alt=""
-                className="rounded-2xl"
-                />
-
-                {/* 상품 이름 */}
-                <div className="flex flex-1 flex-col space-y-2 p-4 ">
-                    <h3 className="text-lg text-gray-900">
-                        Americano
-                    </h3>
-                </div>
-            </div>
-            <div className="rounded-2xl border border-gray-200 bg-white m-4">
-                <img
-                    src="https://www.coffeebeankorea.com/data/menu/%EC%B9%B4%ED%91%B8%EC%B9%98%EB%85%B8_1.jpg"
-                    alt=""
-                className="rounded-2xl"
-                />
-
-                {/* 상품 이름 */}
-                <div className="flex flex-1 flex-col space-y-2 p-4 ">
-                    <h3 className="text-lg text-gray-900">
-                        Americano
-                    </h3>
-                </div>
+                <h3 className='text-lg text-gray-900 px-6 pb-4'>
+                    Coffee Americano
+                </h3>
             </div>
         </div>
     );
 }
-

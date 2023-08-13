@@ -57,7 +57,11 @@ export default function App(): JSX.Element {
         </div>
 
         {/* menu */}
-        <div className="h-5/6">
+        <div className="h-5/6 overflow-y-scroll overflow-x-hidden grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <Menu />
+          <Menu />
+          <Menu />
+          <Menu />
           <Menu />
         </div>
       </div>

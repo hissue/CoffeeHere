@@ -1,5 +1,5 @@
 import React from 'react';
-import Option from './components/Option';
+import MenuOption from './components/MenuOption';
 
 export default function Pay() {
     return (
@@ -7,7 +7,7 @@ export default function Pay() {
             주문 내역
             할인 선택
             최종 결제
-            <Option text={"hello"} />
+            <MenuOption text={"hello"} />
         </div>
     );
 }
