@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuOption from './components/MenuOption';
+import MenuOption from '../components/MenuOption';
 
 export default function Pay() {
     return (

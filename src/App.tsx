@@ -1,29 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Category from "./components/Category";
 import Menu from "./components/Menu";
 
 export default function App(): JSX.Element {
   const [showStatus, setShowStatus] = useState<boolean>(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleScroll = (direction: "up" | "down") => {
-    if (direction === "up") {
-      setScrollPosition(Math.max(scrollPosition - 1));
-    } else {
-      setScrollPosition(Math.min(scrollPosition + 1));
-    }
-  };
 
   return (
     <div className="flex w-full h-full">
       {/* left side bar */}
       <div className="w-1/6 flex justify-center">
-        <div className="bg-red-200 p-4 m-10 rounded-lg shadow-xl">
-          <button onClick={() => handleScroll("up")}>🔽</button>
+        <nav className="bg-white p-4 m-10 rounded-lg shadow-xl w-3/5 ">
+          <ul>
           <Category />
           <Category />
-          <button onClick={() => handleScroll("down")}>🔽</button>
-        </div>
+          </ul>
+          </nav>
       </div>
 
       <div className="bg-green-200 w-5/6">
@@ -58,10 +49,6 @@ export default function App(): JSX.Element {
 
         {/* menu */}
         <div className="h-5/6 overflow-y-scroll overflow-x-hidden grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <Menu />
-          <Menu />
-          <Menu />
-          <Menu />
           <Menu />
         </div>
       </div>

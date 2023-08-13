@@ -8,15 +8,15 @@ export default function Menu() {
     };
 
     return (
-        <div className='m-5'>
-            <div className='relative rounded-2xl border border-yellow-500 bg-white'>
+        <div className="m-4">
+            <div className="relative rounded-2xl border border-yellow-500 bg-white">
                 <img
                     src={image}
-                    alt='target'
+                    alt="target"
                     onError={handleImgError}
-                    className='rounded-3xl p-5'
+                    className="rounded-3xl p-5"
                 />
-                <h3 className='text-lg text-gray-900 px-6 pb-4'>
+                <h3 className="text-lg text-gray-900 px-6 pb-4">
                     Coffee Americano
                 </h3>
             </div>
