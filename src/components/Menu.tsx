@@ -9,7 +9,7 @@ export default function Menu() {
 
     return (
         <div className="m-4">
-            <div className="relative rounded-2xl border border-yellow-500 bg-white">
+            <div className="relative rounded-2xl border-2 border-yellow-500 shadow-xl bg-white">
                 <img
                     src={image}
                     alt="target"
