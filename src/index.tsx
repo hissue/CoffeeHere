@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
 import Pay from "./Pages/Pay";
-import DetailMenu from "./Pages/DetailMenu";
 
 import { RecoilRoot} from "recoil";
 
@@ -17,10 +16,6 @@ const router = createBrowserRouter([
     {
         path: "/pay",
         element: <Pay />,
-      },
-      {
-        path: "/detailmenu",
-        element: <DetailMenu />,
       },
 ])
 

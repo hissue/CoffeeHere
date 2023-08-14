@@ -35,7 +35,6 @@ export default function App(): JSX.Element {
           </div>
         </div>
       </div>
-
       <div className="w-5/6">
         {/* banner */}
         <div className="h-1/6">
@@ -80,29 +79,33 @@ export default function App(): JSX.Element {
                 {showStatus && (
                   <>
                     {/* 사이드 박스 */}
-                    <div className="fixed top-0 right-0 h-full w-1/4 p-4 text-black bg-white rounded-l-3xl shadow-xl">
-                      <div className="flex-1 justify-between">
+                    <div className="fixed top-0 right-0 h-full w-1/4 text-black shadow-xl">
+                      <div className="h-4/5 flex flex-col bg-white rounded-tl-3xl">
                         {/* 주문내역 배너 */}
-                        <div className="flex justify-between items-center m-3">
-                          <div className="sm:text-2xl lg:text-4xl">주문 내역</div>
-                          <button onClick={() => setShowStatus(!showStatus)} className="flex items-center">
+                        <div className="flex justify-between items-center mt-7 mx-6">
+                          <div className="sm:text-xl lg:text-4xl">주문 내역</div>
+                          <button onClick={() => setShowStatus(!showStatus)} className="flex items-center sm:text-md lg:text-xl">
                             뒤로 <IoReturnUpForward className="ml-2 text-2xl" />
                           </button>
                         </div>
-                        {/* 상세 내역 */}
-                        <div className="ml-4 my-7 overflow-y-scroll">
-                          <ChoiceCoffee />
+                        <div className="ml-7 my-2 h-full overflow-y-scroll">
+                          {/* ChoiceCoffee 컴포넌트 또는 내용 */}
                           <ChoiceCoffee />
                           <ChoiceCoffee />
                           <ChoiceCoffee />
                           <ChoiceCoffee />
                         </div>
                       </div>
-                      <div>
-                        <div>
+                      <div className="relative h-1/5 flex flex-col justify-end rounded-bl-3xl custom-pay-color">
+                        <div className="ml-7 flex justify-between items-center h-full">
+                            총 결제 금액
+                          <div className="text-3xl mr-7">
+                            10000원
+                          </div>
                         </div>
-                        <div>
-                        </div>
+                        <button className="mx-7 mb-5 mt-3 custom-button">
+                          결제
+                        </button>
                       </div>
                     </div>
                   </>

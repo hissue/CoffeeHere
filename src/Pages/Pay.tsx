@@ -1,13 +1,13 @@
-import React from 'react';
-import MenuOption from '../components/MenuOption';
+import React,{useState} from 'react';
+import Option from '../components/modal/Option';
 
 export default function Pay() {
+    const [openModal,setOpenModal] = useState<boolean>(false);
+
     return (
         <div>
-            주문 내역
-            할인 선택
-            최종 결제
-            <MenuOption text={"hello"} />
+            <button onClick={() => setOpenModal(!openModal)}>hello</button>
+            {openModal && <Option />}
         </div>
     );
 }
