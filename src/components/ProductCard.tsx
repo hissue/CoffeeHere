@@ -6,7 +6,7 @@ import QuantityButton from './QuantityButton';
 // Product Card
 export default function ProductCard({ product }: { product: IProduct }) {
     const [openOptionModal, setOpenOptionModal] = useState<boolean>(false);
-    
+
     const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         const target = e.target as HTMLImageElement;
         target.src = "https://cdn-icons-png.flaticon.com/512/4062/4062340.png";
@@ -34,12 +34,9 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 </h3>
 
                 {/* Option Modal */}
-                {product.option ? (
-                    openOptionModal && (
-                        <ProductOption options={product.option} product={product} handleModal={handleCloseModal} />
-                    )
-                ) : <></>}
-
+                {openOptionModal && (
+                    <ProductOption options={product.option || []} product={product} handleModal={handleCloseModal} />
+                )}
             </div>
         </li>
     );
@@ -48,14 +45,25 @@ export default function ProductCard({ product }: { product: IProduct }) {
 // Option Modal
 function ProductOption({ options, product, handleModal }: { options: IOption[], product: IProduct, handleModal: () => void }) {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [quantity, setQuantity] = useState(0);
+
+    const handleIncrement = () => {
+        setQuantity(quantity + 1);
+    };
+
+    const handleDecrement = () => {
+        if (quantity > 0) { // 0 이상까지만 감소 가능하도록
+            setQuantity(quantity - 1);
+        }
+    };
 
     const handleOptionSelect = (option: string) => {
         if (selectedOptions.includes(option)) {
-          setSelectedOptions(prevOptions => prevOptions.filter(selectedOption => selectedOption !== option));
+            setSelectedOptions(prevOptions => prevOptions.filter(selectedOption => selectedOption !== option));
         } else {
-          setSelectedOptions(prevOptions => [...prevOptions, option]);
+            setSelectedOptions(prevOptions => [...prevOptions, option]);
         }
-      }
+    }
 
     const handleCloseModal = (e: any) => {
         e.stopPropagation();
@@ -108,7 +116,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                                     </fieldset>
                                                 ))}
                                             </div>
-                                            <QuantityButton />
+                                            <QuantityButton handleIncProp={handleIncrement} handleDecProp={handleDecrement} quantityProp={quantity} />
                                             <div className="mt-6 flex justify-between ">
                                                 <button onClick={handleCloseModal} className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
                                                 <button type="submit" className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">선택</button>
@@ -124,3 +132,4 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
         </div>
     );
 }
+

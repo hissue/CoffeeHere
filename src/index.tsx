@@ -4,8 +4,9 @@ import enableMock from "./mock"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import Pay from "./Pages/Pay";
+import Pay from "./Pay";
 
+// recoil
 import { RecoilRoot} from "recoil";
 
 const router = createBrowserRouter([

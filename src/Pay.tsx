@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import ChoiceCoffee from '../components/ChoiceCoffee';
-import Button from '../components/Button';
+import ChoiceCoffee from './components/ChoiceCoffee';
+import Button from './components/Button';
 import { IoReturnUpBack } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
 export default function Pay() {
-    const [openReceipt, setOpenReceipt] = useState<boolean>(false);
 
     return (
         <div className="w-full h-full m-7">

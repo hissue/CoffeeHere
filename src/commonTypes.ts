@@ -25,3 +25,10 @@ export interface ICoupons {
 export interface ISelectedMenu {
     selectedCategory: string | null;
 }
+
+export interface ICartItem {
+    name: string;
+    price: number;
+    quantity: number;
+    option?: IOption[] 
+  }
