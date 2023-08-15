@@ -48,7 +48,6 @@ export default function Pay() {
                     </div>
                     <div className="flex justify-end items-center">
                         <Button text="결제 완료" />
-
                     </div>
                 </div>
             </div>

@@ -1,23 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 import Category from "./components/Category";
-import Menu from "./components/Menu";
+import ProductCard from "./components/ProductCard";
 import { SlArrowDown, SlArrowUp, SlHome } from "react-icons/sl";
 import { BsCart4 } from "react-icons/bs";
 import { IoReturnUpForward } from "react-icons/io5";
 import ChoiceCoffee from "./components/ChoiceCoffee";
 import { Link } from 'react-router-dom';
-
-// Categories interface
-interface ICategories {
-  id: string;
-  name: string;
-}
+import { ICategories, IProduct, ISelectedMenu } from "./commonTypes";
 
 export default function App(): JSX.Element {
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const horizontalScrollRef = useRef<HTMLDivElement>(null);
   // Categories data define
   const [categories, setCategories] = useState<ICategories[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryClick = (id: string) => {
+    setSelectedCategory(id);
+  };
 
   const handleNextButtonClick = (nextType: 'prev' | 'next') => {
     if (!horizontalScrollRef.current) return;
@@ -28,9 +28,14 @@ export default function App(): JSX.Element {
 
   // Category API
   const fetchCategories = async () => {
-    const response = await fetch("/categories");
-    const data = await response.json();
-    setCategories(data.data);
+    try {
+      const response = await fetch("/categories");
+      const data = await response.json();
+      setCategories(data.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+
   }
 
   useEffect(() => {
@@ -39,7 +44,7 @@ export default function App(): JSX.Element {
 
   return (
     <div className="flex w-full h-full">
-      {/* left side bar */}
+      {/* left section */}
       <div className="w-1/6 flex justify-center">
         <div className="relative bg-white p-4 m-10 rounded-lg shadow-xl w-3/5 flex flex-col justify-between">
           <div className="flex justify-center items-center mb-2">
@@ -47,9 +52,14 @@ export default function App(): JSX.Element {
           </div>
           <div ref={horizontalScrollRef} className="flex-1 overflow-hidden">
             <ul>
-              {categories.map((category, index)=>(
-                <li id={category.id} className="p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center ">
-                <Category label={category.name} />
+              {categories.map((category) => (
+                <li
+                  key={category.name}
+                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center ${selectedCategory === category.id ? 'bg-yellow-600' : ''
+                    }`}
+                  onClick={() => handleCategoryClick(category.id)}
+                >
+                  <Category label={category.name} />
                 </li>
               ))}
             </ul>
@@ -59,6 +69,8 @@ export default function App(): JSX.Element {
           </div>
         </div>
       </div>
+
+      {/* right section */}
       <div className="w-5/6">
         {/* banner */}
         <div className="h-1/6">
@@ -103,7 +115,7 @@ export default function App(): JSX.Element {
                 {showStatus && (
                   <>
                     {/* 사이드 박스 */}
-                    <div className="fixed top-0 right-0 h-full w-1/4 text-black shadow-xl">
+                    <div className="fixed top-0 right-0 h-full w-1/4 text-black shadow-xl z-10">
                       <div className="h-4/5 flex flex-col bg-white rounded-tl-3xl">
                         {/* 주문내역 배너 */}
                         <div className="flex justify-between items-center mt-7 mx-6">
@@ -136,12 +148,44 @@ export default function App(): JSX.Element {
             </div>
           </div>
         </div>
-        {/* main menu */}
-        <div className="h-5/6 overflow-y-scroll overflow-x-hidden grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 z-20">
-          <Menu />
-        </div>
+
+        {/* Menu Section */}
+        <MainMenu selectedCategory={selectedCategory} />
       </div>
     </div >
   );
 }
 
+// Menu Section
+function MainMenu({ selectedCategory }: ISelectedMenu) {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  // selectedCategory filtering
+  const filteredMenuItems = selectedCategory
+    ? products.filter((item) => item.categoryId === selectedCategory)
+    : products;
+
+  // Products Rest API
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("/products");
+      const rawData = await response.json();
+      setProducts(rawData.data);
+      // console.log(products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  return (
+    <ul className="relative h-5/6 overflow-y-scroll overflow-x-hidden grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 z-0">
+        {filteredMenuItems.map((menuItem) => (
+          <ProductCard key={menuItem.name} product={menuItem} />
+        ))}
+    </ul>
+  );
+}
