@@ -89,8 +89,6 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
         setCart([...cart, newItem]);
     };
 
-    console.log(cart);
-
     return (
         <div className="relative z-10" role="dialog" aria-modal="true">
             <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>

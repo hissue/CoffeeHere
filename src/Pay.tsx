@@ -17,11 +17,11 @@ export default function Pay() {
                 <div className="w-1/2 ml-8">
                     <div className="text-3xl mb-9">주문 내역</div>
                     <div className="mx-12 m-6 max-h-[70vh] overflow-y-scroll">
+                        {/* <ChoiceCoffee />
                         <ChoiceCoffee />
                         <ChoiceCoffee />
                         <ChoiceCoffee />
-                        <ChoiceCoffee />
-                        <ChoiceCoffee />
+                        <ChoiceCoffee /> */}
                     </div>
                 </div>
 

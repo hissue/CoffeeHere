@@ -1,16 +1,13 @@
 import { PiCoffeeDuotone, PiXBold } from "react-icons/pi";
-
-import QuantityButton from "./QuantityButton"
-
-export default function ChoiceCoffee() {
-
+import { ICartItem } from "../commonTypes";
+export default function ChoiceCoffee({selectedItem} : {selectedItem : ICartItem}) {
 
   return (
     <div className="flex justify-between my-6 border-b-2">
       <PiCoffeeDuotone className="text-4xl ml-2" />
       <div className="mx-3 text-right ">
         <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-          Cinnamon and Cocoa
+          {selectedItem.name}
         </div>
         <div className="text-sm text-gray-400 mb-2">Just Now</div>
         {/* <QuantityButton /> */}

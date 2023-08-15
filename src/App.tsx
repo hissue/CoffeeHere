@@ -8,6 +8,10 @@ import ChoiceCoffee from "./components/ChoiceCoffee";
 import { Link } from 'react-router-dom';
 import { ICategories, IProduct, ISelectedMenu } from "./commonTypes";
 
+// recoil
+import { useRecoilValue } from 'recoil';
+import { cartState } from './recoil/atom';
+
 export default function App(): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -67,6 +71,7 @@ function MainMenu({ selectedCategory }: ISelectedMenu) {
 // Banner Section
 function BannerMenu() {
   const [showStatus, setShowStatus] = useState<boolean>(false);
+  const cart = useRecoilValue(cartState);
 
   return (
     <div className="h-1/6">
@@ -122,10 +127,9 @@ function BannerMenu() {
                     </div>
                     <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">
                       {/* ChoiceCoffee 컴포넌트 또는 내용 */}
-                      <ChoiceCoffee />
-                      <ChoiceCoffee />
-                      <ChoiceCoffee />
-                      <ChoiceCoffee />
+                      {cart.map((item, index) => (
+                        <ChoiceCoffee key={`cart_${item.name}_${index}`} selectedItem={item} />
+                      ))}
                     </div>
                   </div>
                   <div className="relative h-1/5 flex flex-col justify-end rounded-bl-3xl custom-pay-color">
