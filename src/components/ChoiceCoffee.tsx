@@ -1,6 +1,6 @@
 import { PiCoffeeDuotone, PiXBold } from "react-icons/pi";
 
-import QuantityButton from "./QuantityButton";
+import QuantityButton from "./QuantityButton"
 
 export default function ChoiceCoffee() {
 
