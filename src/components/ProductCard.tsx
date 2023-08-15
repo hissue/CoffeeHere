@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import image from '../assets/image/coffee.jpg';
-import { IProduct, IOption } from "../commonTypes";
+import { IProduct, IOption, ICartItem } from "../commonTypes";
 import QuantityButton from './QuantityButton';
+
+// recoil
+import { useRecoilState } from 'recoil';
+import { cartState } from '../recoil/atom';
 
 // Product Card
 export default function ProductCard({ product }: { product: IProduct }) {
@@ -44,8 +48,11 @@ export default function ProductCard({ product }: { product: IProduct }) {
 
 // Option Modal
 function ProductOption({ options, product, handleModal }: { options: IOption[], product: IProduct, handleModal: () => void }) {
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [selectedOptions, setSelectedOptions] = useState<IOption[]>([]);
     const [quantity, setQuantity] = useState(0);
+
+    // recoil
+    const [cart, setCart] = useRecoilState<ICartItem[]>(cartState);
 
     const handleIncrement = () => {
         setQuantity(quantity + 1);
@@ -57,18 +64,32 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
         }
     };
 
-    const handleOptionSelect = (option: string) => {
+    const handleOptionSelect = (option: IOption) => {
         if (selectedOptions.includes(option)) {
             setSelectedOptions(prevOptions => prevOptions.filter(selectedOption => selectedOption !== option));
         } else {
             setSelectedOptions(prevOptions => [...prevOptions, option]);
         }
+
     }
 
     const handleCloseModal = (e: any) => {
         e.stopPropagation();
         handleModal();
     };
+
+    const addToCart = () => {
+        const newItem: ICartItem = {
+            name: product.name,
+            price: product.price,
+            quantity: quantity,
+            option : selectedOptions
+        };
+
+        setCart([...cart, newItem]);
+    };
+
+    console.log(cart);
 
     return (
         <div className="relative z-10" role="dialog" aria-modal="true">
@@ -105,7 +126,11 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                                         <legend className="block mb-3 text-xl font-bold text-gray-700">옵션 {index + 1}</legend>
                                                         <div className="mt-1 mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                             {/* Select */}
-                                                            <div className={`relative block cursor-pointer rounded-lg border ${selectedOptions.includes(option.name) ? "bg-gray-200" : ""} p-4 focus:outline-none`} onClick={() => handleOptionSelect(option.name)}>
+                                                            <div
+                                                                className={`relative block cursor-pointer rounded-lg border ${selectedOptions.some(selectedOption => selectedOption.name === option.name) ? "bg-gray-200" : ""
+                                                                    } p-4 focus:outline-none`}
+                                                                onClick={() => handleOptionSelect(option)}
+                                                            >
                                                                 <p className="text-xl font-semibold ">{option.name}</p>
                                                                 {option.price && (
                                                                     <p className="mt-1 text-lg">+ {option.price}원</p>
@@ -119,7 +144,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                             <QuantityButton handleIncProp={handleIncrement} handleDecProp={handleDecrement} quantityProp={quantity} />
                                             <div className="mt-6 flex justify-between ">
                                                 <button onClick={handleCloseModal} className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
-                                                <button type="submit" className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">선택</button>
+                                                <button onClick={(e) => { handleCloseModal(e); addToCart(); }} className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">선택</button>
                                             </div>
                                         </div>
                                     </section>
