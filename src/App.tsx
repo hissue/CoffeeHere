@@ -120,7 +120,7 @@ function BannerMenu() {
                         뒤로 <IoReturnUpForward className="ml-2 text-2xl" />
                       </button>
                     </div>
-                    <div className="ml-7 my-2 h-full overflow-y-scroll">
+                    <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">
                       {/* ChoiceCoffee 컴포넌트 또는 내용 */}
                       <ChoiceCoffee />
                       <ChoiceCoffee />

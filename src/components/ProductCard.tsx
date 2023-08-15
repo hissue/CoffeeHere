@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import image from '../assets/image/coffee.jpg';
 import { IProduct, IOption } from "../commonTypes";
+import QuantityButton from './QuantityButton';
 
 // Product Card
 export default function ProductCard({ product }: { product: IProduct }) {
     const [openOptionModal, setOpenOptionModal] = useState<boolean>(false);
-
+    
     const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         const target = e.target as HTMLImageElement;
         target.src = "https://cdn-icons-png.flaticon.com/512/4062/4062340.png";
@@ -44,15 +45,18 @@ export default function ProductCard({ product }: { product: IProduct }) {
     );
 }
 
-
 // Option Modal
 function ProductOption({ options, product, handleModal }: { options: IOption[], product: IProduct, handleModal: () => void }) {
-    const [selectedOption, setSelectedOption] = useState<string>("");
-    const handleOptionSelect = (option: string) => {
-        setSelectedOption(option);
-    }
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-    console.log(selectedOption);
+    const handleOptionSelect = (option: string) => {
+        if (selectedOptions.includes(option)) {
+          setSelectedOptions(prevOptions => prevOptions.filter(selectedOption => selectedOption !== option));
+        } else {
+          setSelectedOptions(prevOptions => [...prevOptions, option]);
+        }
+      }
+
     const handleCloseModal = (e: any) => {
         e.stopPropagation();
         handleModal();
@@ -80,7 +84,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                     <section aria-labelledby="information-heading" className="mt-4">
                                         <h3 id="information-heading" className="sr-only">Product information</h3>
                                         <div className="flex items-center justify-end">
-                                            <p className="lg:text-3xl text-gray-900 sm:text-xl">￦{product.price}</p>
+                                            <p className="lg:text-3xl text-gray-900 sm:text-xl">{product.price}원</p>
                                         </div>
                                     </section>
 
@@ -93,23 +97,18 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                                         <legend className="block mb-3 text-xl font-bold text-gray-700">옵션 {index + 1}</legend>
                                                         <div className="mt-1 mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                             {/* Select */}
-                                                            <div className={`relative block cursor-pointer rounded-lg border ${selectedOption === option.name ? "bg-gray-200" : ""} p-4 focus:outline-none`} onClick={() => handleOptionSelect(option.name)}>
+                                                            <div className={`relative block cursor-pointer rounded-lg border ${selectedOptions.includes(option.name) ? "bg-gray-200" : ""} p-4 focus:outline-none`} onClick={() => handleOptionSelect(option.name)}>
                                                                 <p className="text-xl font-semibold ">{option.name}</p>
                                                                 {option.price && (
-                                                                    <p className="mt-1 text-lg">+ {option.price}</p>
+                                                                    <p className="mt-1 text-lg">+ {option.price}원</p>
                                                                 )}
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
-                                                            </div>
-                                                            {/* No select */}
-                                                            <div className={`relative block cursor-pointer rounded-lg border ${selectedOption === "no" + option.name ? "bg-gray-200" : ""} p-4 focus:outline-none`} onClick={() => handleOptionSelect("no" + option.name)}>
-                                                                <p className={"text-xl font-semibold"}>선택 안함</p>
-                                                                <div className={"pointer-events-none absolute -inset-px rounded-lg"} aria-hidden="true"></div>
                                                             </div>
                                                         </div>
                                                     </fieldset>
                                                 ))}
                                             </div>
-
+                                            <QuantityButton />
                                             <div className="mt-6 flex justify-between ">
                                                 <button onClick={handleCloseModal} className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
                                                 <button type="submit" className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">선택</button>
