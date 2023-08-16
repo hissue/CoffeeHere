@@ -15,13 +15,6 @@ export interface IOption {
     price?: number;
 }
 
-export interface ICoupons {
-    id: string;
-    type: string;
-    name: string;
-    price: number;
-}
-
 export interface ICartProduct {
     name: string;
     price: number;
@@ -29,3 +22,10 @@ export interface ICartProduct {
     option?: IOption[];
     subTotal: number; 
   }
+
+  export interface ICoupons {
+    id: string;
+    type: string;
+    name: string;
+    price: number;
+}

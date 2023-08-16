@@ -46,6 +46,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
     );
 }
 
+
 // Option Modal
 function ProductOption({ options, product, handleModal }: { options: IOption[], product: IProduct, handleModal: () => void }) {
     const [selectedOptions, setSelectedOptions] = useState<IOption[]>([]);

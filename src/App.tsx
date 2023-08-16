@@ -48,7 +48,7 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
     horizontalScrollRef.current.scrollTop += scrollAmount;
   };
 
-  // Category Rest API
+  // Categories Rest API
   const fetchCategories = async () => {
     try {
       const response = await fetch("/categories");

@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from "react";
 import { IoReturnUpForward } from "react-icons/io5";
 import { PiXBold } from "react-icons/pi";
 
@@ -6,17 +6,23 @@ import { PiXBold } from "react-icons/pi";
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { cartState, totalPriceSelector } from '../recoil/atom';
 
-import { ICartProduct, IOption } from "../commonTypes";
+import { ICartProduct, IOption, ICoupons } from "../commonTypes";
 import QuantityButton from "./QuantityButton";
 
-export default function CartHistory({handleShowStatus} : {handleShowStatus : () => void}) {
+export default function CartHistory({ handleShowStatus }: { handleShowStatus: () => void }) {
     const cart = useRecoilValue(cartState);
     const totalPrice = useRecoilValue(totalPriceSelector);
+    const [showModal, setShowModal] = useState<boolean>(false);
+
+    const handleModal = () => {
+        setShowModal(!showModal);
+    }
 
     return (
         <div>
             <div className="fixed top-0 right-0 h-full w-1/4 text-black shadow-xl z-10">
                 <div className="h-4/5 flex flex-col bg-white rounded-tl-3xl">
+
                     {/* Cart Banner */}
                     <div className="flex justify-between items-center mt-7 mx-6">
                         <div className="sm:text-xl lg:text-4xl">주문 내역</div>
@@ -25,7 +31,8 @@ export default function CartHistory({handleShowStatus} : {handleShowStatus : () 
                         </button>
                     </div>
                     <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">
-                        {/* ChoiceCoffee 컴포넌트 또는 내용 */}
+
+                        {/* Selected Products */}
                         {cart.map((product, index) => (
                             <SelectedProduct key={`cart_${product.name}_${index}`} selectedProduct={product} />
                         ))}
@@ -38,8 +45,10 @@ export default function CartHistory({handleShowStatus} : {handleShowStatus : () 
                             {totalPrice}원
                         </div>
                     </div>
-                    {/* 모달이 나오게 */}
-                    <button className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</button>
+                    <button onClick={handleModal} className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</button>
+                    {showModal && (
+                        <Pay />
+                    )}
                 </div>
             </div>
         </div>
@@ -47,61 +56,150 @@ export default function CartHistory({handleShowStatus} : {handleShowStatus : () 
 }
 
 
+// Selected Products
 function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct }) {
     const [myList, setMyList] = useRecoilState(cartState);
-  
+
     // recoil Delete
     const handleDelete = () => {
-      const updatedList = myList.filter(product => product !== selectedProduct);
-      setMyList(updatedList);
+        const updatedList = myList.filter(product => product !== selectedProduct);
+        setMyList(updatedList);
     };
-  
+
     // Recoil Change
     const handleQuantityChange = (newQuantity: number) => {
-      const updatedCart = myList.map(cartProduct =>
-        cartProduct.name === selectedProduct.name
-          ? { ...cartProduct, quantity: newQuantity, subTotal: selectedProduct.price * newQuantity + newQuantity * calculateOptionTotal(selectedProduct.option || [])}
-          : cartProduct
-      );
-  
-      setMyList(updatedCart);
+        const updatedCart = myList.map(cartProduct =>
+            cartProduct.name === selectedProduct.name
+                ? { ...cartProduct, quantity: newQuantity, subTotal: selectedProduct.price * newQuantity + newQuantity * calculateOptionTotal(selectedProduct.option || []) }
+                : cartProduct
+        );
+
+        setMyList(updatedCart);
     };
-  
+
     const calculateOptionTotal = (options: IOption[]) => {
-      return options.reduce((total, option) => total + (option.price || 0), 0);
+        return options.reduce((total, option) => total + (option.price || 0), 0);
     };
-  
+
     return (
-      <div className="flex justify-between my-6 border-b-2">
-        <div className="mx-3 text-right">
-          <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-            {selectedProduct.name}
-          </div>
-  
-          {selectedProduct.option?.map((op) => (
-            <div className="flex justify-end text-sm text-gray-400 mb-2" key={op.name}>
-              <div>{op.name}</div>
-              {op.price ? (
-                <div>{`${op.price * selectedProduct.quantity}원`}</div>
-              ) : <div>0원</div>}
-  
+        <div className="flex justify-between my-6 border-b-2">
+            <div className="mx-3 text-right">
+                <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
+                    {selectedProduct.name}
+                </div>
+
+                {selectedProduct.option?.map((op) => (
+                    <div className="flex justify-end text-sm text-gray-400 mb-2" key={op.name}>
+                        <div>{op.name}</div>
+                        {op.price ? (
+                            <div>{`${op.price * selectedProduct.quantity}원`}</div>
+                        ) : <div>0원</div>}
+
+                    </div>
+                ))}
+                <QuantityButton
+                    handleIncProp={() => handleQuantityChange(selectedProduct.quantity + 1)}
+                    handleDecProp={() => handleQuantityChange(selectedProduct.quantity - 1)}
+                    quantityProp={selectedProduct.quantity}
+                />
             </div>
-          ))}
-          <QuantityButton
-            handleIncProp={() => handleQuantityChange(selectedProduct.quantity + 1)}
-            handleDecProp={() => handleQuantityChange(selectedProduct.quantity - 1)}
-            quantityProp={selectedProduct.quantity}
-          />
+            <div>
+                subTotal : {selectedProduct.subTotal}
+            </div>
+            <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
+                {selectedProduct.price * selectedProduct.quantity}원
+            </div>
+            <button onClick={handleDelete} className="flex justify-end mr-4 mt-0 rounded-md text-gray-400 hover:text-gray-700">
+                <PiXBold />
+            </button>
+        </div >
+    );
+}
+
+function Pay() {
+    const [coupons, setCoupons] = useState<ICoupons[]>([]);
+
+    // Coupons Rest API
+    const fetchCoupons = async () => {
+        try {
+            const response = await fetch("/coupons");
+            const rawdata = await response.json();
+            setCoupons(rawdata.data);
+        } catch (error) {
+            console.error('Error fetching coupons:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCoupons();
+    }, []);
+
+    return (
+        <div className="relative z-10" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+                    <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+
+                        <div className="relative flex w-full items-center rounded-2xl overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                            <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-6 lg:gap-x-8">
+                                <div className="sm:col-span-8 lg:col-span-7">
+
+                                    <h2 className="text-5xl font-bold text-gray-900 sm:pr-12">최종 결제</h2>
+                                    <section aria-labelledby="options-heading" className="mt-10">
+                                        <h3 id="options-heading" className="sr-only">Product options</h3>
+                                        <div>
+                                            <div className="sm:flex-1 sm:justify-between">
+                                                <fieldset>
+                                                    <legend className="block mb-3 text-3xl font-bold text-gray-700">할인 수단</legend>
+                                                    <div className="mt-1 mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                        {coupons.map((coupon) => (
+                                                            <div key={coupon.id} className="relative block cursor-pointer rounded-lg border text-center py-4">
+                                                                <p className="text-2xl font-semibold">{coupon.name}</p>
+                                                                <p className="text-xl font-semibold">{coupon.type === 'amount' ? `${coupon.price}원` : `${coupon.price}%`}</p>
+                                                                <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </fieldset>
+
+                                                <fieldset>
+                                                    <legend className="block mb-5 text-3xl font-bold text-gray-700">결제 금액</legend>
+                                                    <div className="mt-1 mb-5 grid gap-4 grid-rows-2">
+                                                        <div className="relative grid grid-cols-2 gap-4 items-center">
+                                                            <p className="text-xl font-semibold">구매 금액</p>
+                                                            <p className="text-xl font-semibold">1000원</p>
+                                                        </div>
+                                                        <div className="relative grid grid-cols-2 gap-4 items-center">
+                                                            <p className="text-xl font-semibold">할인 금액</p>
+                                                            <p className="text-xl font-semibold">1000원</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="border-t-2 mt-1 mb-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                        <div className="relative block cursor-pointer text-start py-4">
+                                                            <p className="text-4xl font-semibold">최종 결제 금액</p>
+                                                        </div>
+                                                        <div className="relative block cursor-pointer text-start py-4">
+                                                            <p className="text-3xl font-semibold">100000원</p>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+
+                                            {/* Pay Button */}
+                                            <div className="pt-6 flex justify-between border-t-2">
+                                                <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
+                                                <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">결제</button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-          subTotal : {selectedProduct.subTotal}
-          </div>
-        <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-          {selectedProduct.price * selectedProduct.quantity}원
-        </div>
-        <button onClick={handleDelete} className="flex justify-end mr-4 mt-0 rounded-md text-gray-400 hover:text-gray-700">
-          <PiXBold />
-        </button>
-      </div >
     );
 }
