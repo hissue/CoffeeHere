@@ -11,7 +11,7 @@ export default function Recipt() {
             <div className="fixed inset-0 hidden bg-gray-500 md:block"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
-                    <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-3xl">
+                    <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-xl md:px-4 lg:max-w-2xl">
 
                         <div className="relative flex w-full items-center rounded-2xl overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                             <div className="grid w-full grid-cols-1 items-start gap-x-3 gap-y-8 sm:grid-cols-6 lg:gap-x-8">
@@ -28,30 +28,30 @@ export default function Recipt() {
                                                             <div className="relative grid grid-cols-3 gap-4 items-center">
                                                                 <p className="text-xl font-semibold">{product.name}</p>
                                                                 <p className="text-xl font-semibold text-center">수량 : {product.quantity}</p>
-                                                                <p className="text-xl text-right">{product.price * product.quantity} 원</p>
+                                                                <p className="text-xl text-right">{(product.price * product.quantity).toLocaleString()} 원</p>
                                                             </div>
                                                             {product.option?.map((option, index) => (
                                                                 <div key={`option_${option.name}_${index}`} className="relative grid grid-cols-2 gap-4 items-center">
                                                                     <p className="text-xl ">{option.name}</p>
                                                                     <p className="text-xl text-right">
-                                                                        {option.price !== undefined ? option.price * product.quantity : 0}원
+                                                                        {option.price !== undefined ? (option.price * product.quantity).toLocaleString() : 0}원
                                                                     </p>
                                                                 </div>
                                                             ))}
 
                                                             <div className="relative grid grid-cols-2 gap-4 items-center">
                                                                 <p className="text-xl " />
-                                                                <p className="text-xl font-semibold text-right">총 {product.subTotal}원</p>
+                                                                <p className="text-xl font-semibold text-right">총 {product.subTotal.toLocaleString()}원</p>
                                                             </div>
                                                         </div>
                                                     ))}
 
                                                     <div className="border-t-2 mt-1 mb-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                         <div className="relative block cursor-pointer text-start py-4">
-                                                            <p className="text-2xl font-semibold ">금액 할인</p>
+                                                            <p className="text-2xl font-semibold ">할인 내역</p>
                                                         </div>
                                                         <div className="relative block cursor-pointer text-start py-4">
-                                                            <p className="text-2xl font-semibold text-right">- {discountPrice}원</p>
+                                                            <p className="text-2xl font-semibold text-right">- {discountPrice.toLocaleString()}원</p>
                                                         </div>
                                                     </div>
                                                     <div className="border-t-2 mt-1 mb-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -59,7 +59,7 @@ export default function Recipt() {
                                                             <p className="text-3xl font-semibold">합계</p>
                                                         </div>
                                                         <div className="relative block cursor-pointer text-start py-4">
-                                                            <p className="text-3xl font-semibold text-right">{totalPrice - discountPrice}원</p>
+                                                            <p className="text-3xl font-semibold text-right">{(totalPrice - discountPrice).toLocaleString()}원</p>
                                                         </div>
                                                     </div>
                                                 </fieldset>

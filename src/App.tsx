@@ -67,7 +67,7 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
   return (
     <>
       <div className="w-1/6 flex justify-center">
-        <div className="relative bg-white p-4 m-10 rounded-lg shadow-xl w-3/5 flex flex-col justify-between">
+        <div className="relative bg-white p-4 m-10 rounded-lg shadow-2xl w-3/5 flex flex-col justify-between">
           <div className="flex justify-center items-center mb-2">
             <button onClick={() => handleNextButtonClick('prev')}><SlArrowUp /></button>
           </div>
@@ -76,13 +76,12 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
               {categories.map((category) => (
                 <li
                   key={category.name}
-                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center ${selectedCategory === category.id ? 'bg-indigo-300' : ''
+                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center hover:border-indigo-700 ${selectedCategory === category.id ? 'bg-indigo-500 hover:bg-indigo-600 text-white' : ''
                     }`}
                   onClick={() => handleCategoryClick(category.id)}
                 >
-                  <div className="text-center">
-                    <SiCoffeescript className="sm:text-xl md:text-2xl lg:text-5xl" />
-                    <h3 className="sm:text-xs md:text-sm lg:text-base">{category.name}</h3>
+                  <div className="text-center my-7">
+                    <h3 className="sm:text-lg md:text-xl lg:text-2xl font-bold">{category.name}</h3>
                   </div>
                 </li>
               ))}
@@ -115,36 +114,17 @@ function BannerMenu() {
         </svg>
 
         {/* The Others*/}
-        <div className="flex items-center justify-end mr-10">
-          {/* search */}
-          <div className="max-w-2xl mx-2 relative">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              className="block p-4 pl-10 w-full md:w-80 text-md text-gray-900 bg-gray-200 rounded-3xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="커피를 검색해 주세요."
-              required
-            />
-            <button
-              type="submit"
-              className="custom-button absolute sm:text-sm lg:text-md text-white right-2.5 bottom-1.5"
-            >
-              검색
-            </button>
-          </div>
+        <div className="flex items-center justify-end mr-8">
 
           {/* Home Button */}
-          <div className="p-3 custom-button">
+          <div className="text-5xl p-3 custom-button">
             <a href="/">
               <SlHome />
             </a>
           </div>
 
           {/* Cart Button */}
-          <div className="custom-button">
+          <div className="text-4xl py-4 px-5 m-6 custom-button">
             <button onClick={() => setShowStatus(!showStatus)}>
               <BsCart4 />
             </button>
