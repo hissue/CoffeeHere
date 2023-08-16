@@ -47,7 +47,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                     </div>
                     <button onClick={handleModal} className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</button>
                     {showModal && (
-                        <Pay />
+                        <Pay totalPrice={totalPrice} handleModal={handleModal}/>
                     )}
                 </div>
             </div>
@@ -116,9 +116,10 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
     );
 }
 
-function Pay() {
+function Pay({totalPrice, handleModal} : {totalPrice : number, handleModal : () => void}) {
     const [coupons, setCoupons] = useState<ICoupons[]>([]);
-
+    const [seletedCoupon, setSeletedCoupon] = useState<string>("");
+    
     // Coupons Rest API
     const fetchCoupons = async () => {
         try {
@@ -129,6 +130,10 @@ function Pay() {
             console.error('Error fetching coupons:', error);
         }
     }
+
+    const handleCouponClick  = (id: string) => {
+        setSeletedCoupon(id);
+      };
 
     useEffect(() => {
         fetchCoupons();
@@ -151,15 +156,22 @@ function Pay() {
                                         <div>
                                             <div className="sm:flex-1 sm:justify-between">
                                                 <fieldset>
-                                                    <legend className="block mb-3 text-3xl font-bold text-gray-700">할인 수단</legend>
-                                                    <div className="mt-1 mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                    <legend className="block mb-3 text-3xl font-bold text-gray-700">할인 선택</legend>
+                                                    <div className="mt-1 mb-5 grid gap-4 grid-cols-3">
                                                         {coupons.map((coupon) => (
-                                                            <div key={coupon.id} className="relative block cursor-pointer rounded-lg border text-center py-4">
+                                                            <div key={coupon.id} className={`relative block cursor-pointer rounded-lg border text-center py-4 ${seletedCoupon === coupon.id ? 'bg-gray-200' : ''
+                                                        }`} onClick={() => handleCouponClick(coupon.id)}>
                                                                 <p className="text-2xl font-semibold">{coupon.name}</p>
                                                                 <p className="text-xl font-semibold">{coupon.type === 'amount' ? `${coupon.price}원` : `${coupon.price}%`}</p>
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>
                                                         ))}
+                                                        <div key={"notCoupon"} className={`relative block cursor-pointer rounded-lg border text-center py-4 ${seletedCoupon === "notCoupon" ? 'bg-gray-200' : ''
+                                                        }`} onClick={() => handleCouponClick("notCoupon")}>
+                                                                <p className="text-2xl font-semibold">선택 안함</p>
+                                                                <p className="text-xl font-semibold">0원</p>
+                                                                <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
+                                                            </div>
                                                     </div>
                                                 </fieldset>
 
@@ -168,11 +180,11 @@ function Pay() {
                                                     <div className="mt-1 mb-5 grid gap-4 grid-rows-2">
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">구매 금액</p>
-                                                            <p className="text-xl font-semibold">1000원</p>
+                                                            <p className="text-xl font-semibold">{totalPrice}원</p>
                                                         </div>
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">할인 금액</p>
-                                                            <p className="text-xl font-semibold">1000원</p>
+                                                            <p className="text-xl font-semibold">- {totalPrice}원</p>
                                                         </div>
                                                     </div>
 
@@ -189,7 +201,7 @@ function Pay() {
 
                                             {/* Pay Button */}
                                             <div className="pt-6 flex justify-between border-t-2">
-                                                <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
+                                                <button onClick={handleModal} className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">취소</button>
                                                 <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 m-3 text-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">결제</button>
                                             </div>
                                         </div>
