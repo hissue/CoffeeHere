@@ -41,7 +41,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                 </div>
                 <div className="relative h-1/5 flex flex-col justify-end rounded-bl-3xl custom-pay-color">
                     <div className="ml-7 flex justify-between items-center h-full">
-                        Total
+                        총 합계
                         <div className="sm:text-xl lg:text-3xl mr-7">
                             {totalPrice.toLocaleString()}원
                         </div>
@@ -178,17 +178,17 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                             <div className="sm:flex-1 sm:justify-between">
                                                 <fieldset>
                                                     <legend className="block mb-3 text-3xl font-bold text-gray-700">할인 선택</legend>
-                                                    <div className="mt-1 mb-5 grid gap-4 grid-cols-3">
+                                                    <div className="mt-1 mb-5 grid gap-4 grid-cols-3 ">
                                                         {coupons.map((coupon) => (
-                                                            <div key={coupon.id} className={`relative block cursor-pointer rounded-lg border text-center py-4 ${seletedCouponId === coupon.id ? 'bg-gray-200' : ''
+                                                            <div key={coupon.id} className={`relative block cursor-pointer rounded-lg border text-center py-4 hover:border-gray-500 ${seletedCouponId === coupon.id ? 'bg-gray-200' : ''
                                                                 }`} onClick={() => handleCouponClick(coupon.id)}>
-                                                                <p className="text-2xl font-semibold">{coupon.name}</p>
+                                                                <p className="text-2xl font-semibold ">{coupon.name}</p>
                                                                 <p className="text-xl font-semibold">{coupon.id === 'coupon_1' ? `${coupon.price.toLocaleString()}원` : `${coupon.price}%`}</p>
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>
                                                         ))}
 
-                                                        <div key={"notCoupon"} className={`relative block cursor-pointer rounded-lg border text-center py-4 ${seletedCouponId === "notCoupon" ? 'bg-gray-200' : ''
+                                                        <div key={"notCoupon"} className={`relative block cursor-pointer rounded-lg border text-center py-4 hover:border-gray-500 ${seletedCouponId === "notCoupon" ? 'bg-gray-200' : ''
                                                             }`} onClick={() => handleCouponClick("notCoupon")}>
                                                             <p className="text-2xl font-semibold">선택 안함</p>
                                                             <p className="text-xl font-semibold">0원</p>

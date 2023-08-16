@@ -76,7 +76,7 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
               {categories.map((category) => (
                 <li
                   key={category.name}
-                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center ${selectedCategory === category.id ? 'bg-indigo-300' : ''
+                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center hover:border-gray-400 ${selectedCategory === category.id ? 'bg-gray-200' : ''
                     }`}
                   onClick={() => handleCategoryClick(category.id)}
                 >

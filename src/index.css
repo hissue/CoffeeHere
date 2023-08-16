@@ -7,7 +7,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background-color: #F6F6F6;
+  background-color: rgba(247, 244, 242, 0.936);
   overflow: hidden;
   font-family: 'Hahmlet-Regular';
 }
@@ -23,7 +23,7 @@ body,
 @layer components {
   .custom-button {
     color: white;
-    background-color: rgba(161, 98, 7);
+    background-color: rgba(79, 70, 229);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -32,7 +32,7 @@ body,
 }
 
 .custom-button:hover {
-    background-color: rgba(133, 77, 14);
+    background-color:  rgba(67, 56, 202);
 }
 
 .custom-pay-color {
