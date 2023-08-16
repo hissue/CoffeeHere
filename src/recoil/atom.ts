@@ -7,14 +7,14 @@ export const cartState = atom<ICartItem[]>({
   default: []
 });
 
-// export const totalPriceSelector = selector({
-//   key: 'totalPriceSelector',
-//   get: ({ get }) => {
-//     const cart = get(cartState);
-//     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-//     return total;
-//   }
-// });
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const total = cart.reduce((acc, item) => acc + item.subTotal, 0);
+    return total;
+  }
+});
 
 // import { useRecoilValue } from 'recoil';
 // import { totalPriceSelector } from './selectors'; // 위에서 정의한 selector

@@ -79,15 +79,19 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
     };
 
     const addToCart = () => {
+        const subTotal = product.price * quantity + quantity * selectedOptions.reduce((total, option) => total + (option.price || 0), 0);
         const newItem: ICartItem = {
             name: product.name,
             price: product.price,
             quantity: quantity,
-            option : selectedOptions
+            option : selectedOptions,
+            subTotal: subTotal
         };
 
         setCart([...cart, newItem]);
     };
+
+    console.log(cart);
 
     return (
         <div className="relative z-10" role="dialog" aria-modal="true">

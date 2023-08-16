@@ -4,7 +4,6 @@ import enableMock from "./mock"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import Pay from "./Pay";
 
 // recoil
 import { RecoilRoot} from "recoil";
@@ -13,11 +12,7 @@ const router = createBrowserRouter([
     {
       path: "/",
       element: <App />,
-    },
-    {
-        path: "/pay",
-        element: <Pay />,
-      },
+    }
 ])
 
 

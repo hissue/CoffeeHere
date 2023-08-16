@@ -10,7 +10,7 @@ import { ICategories, IProduct, ISelectedMenu } from "./commonTypes";
 
 // recoil
 import { useRecoilValue } from 'recoil';
-import { cartState } from './recoil/atom';
+import { cartState, totalPriceSelector } from './recoil/atom';
 
 export default function App(): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -21,13 +21,14 @@ export default function App(): JSX.Element {
 
   return (
     <div className="flex w-full h-full">
-      {/* left section */}
+
+      {/* Left - Category Section */}
       <CategoryMenu handleCategoryClick={handleCategoryClick} selectedCategory={selectedCategory} />
-      {/* right section */}
+      
       <div className="w-5/6">
-        {/* banner */}
+        {/* Right - Banner Section */}
         <BannerMenu />
-        {/* Menu Section */}
+        {/* Right - Menu Section */}
         <MainMenu selectedCategory={selectedCategory} />
       </div>
     </div >
@@ -72,6 +73,7 @@ function MainMenu({ selectedCategory }: ISelectedMenu) {
 function BannerMenu() {
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const cart = useRecoilValue(cartState);
+  const totalPrice = useRecoilValue(totalPriceSelector);
 
   return (
     <div className="h-1/6">
@@ -136,10 +138,11 @@ function BannerMenu() {
                     <div className="ml-7 flex justify-between items-center h-full">
                       Total
                       <div className="sm:text-xl lg:text-3xl mr-7">
-                        10000원
+                        {totalPrice}원
                       </div>
                     </div>
-                    <Link to="/pay" className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</Link>
+                    {/* 모달이 나오게 */}
+                    {/* <Link to="/pay" className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</Link> */}
                   </div>
                 </div>
               </>

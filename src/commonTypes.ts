@@ -30,5 +30,6 @@ export interface ICartItem {
     name: string;
     price: number;
     quantity: number;
-    option?: IOption[] 
+    option?: IOption[];
+    subTotal: number; 
   }
