@@ -183,7 +183,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                             <div key={coupon.id} className={`relative block cursor-pointer rounded-lg border text-center py-4 hover:border-gray-500 ${seletedCouponId === coupon.id ? 'bg-gray-200' : ''
                                                                 }`} onClick={() => handleCouponClick(coupon.id)}>
                                                                 <p className="text-2xl font-semibold ">{coupon.name}</p>
-                                                                <p className="text-xl font-semibold">{coupon.id === 'coupon_1' ? `${coupon.price.toLocaleString()}원` : `${coupon.price}%`}</p>
+                                                                <p className="text-xl font-semibold ">{coupon.id === 'coupon_1' ? `${coupon.price.toLocaleString()}원` : `${coupon.price}%`}</p>
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>
                                                         ))}
@@ -202,11 +202,11 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                     <div className="mt-1 mb-5 grid gap-4 grid-rows-2">
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">구매 금액</p>
-                                                            <p className="text-xl font-semibold">{totalPrice.toLocaleString()}원</p>
+                                                            <p className="text-xl font-semibold text-right">{totalPrice.toLocaleString()}원</p>
                                                         </div>
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">할인 금액</p>
-                                                            <p className="text-xl font-semibold">- {discountPrice.toLocaleString()}원</p>
+                                                            <p className="text-xl font-semibold text-right">- {discountPrice.toLocaleString()}원</p>
                                                         </div>
                                                     </div>
 
@@ -215,7 +215,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                             <p className="text-4xl font-semibold">최종 결제 금액</p>
                                                         </div>
                                                         <div className="relative block cursor-pointer text-start py-4">
-                                                            <p className="text-3xl font-semibold">{(totalPrice - discountPrice).toLocaleString()}원</p>
+                                                            <p className="text-3xl font-semibold text-right">{(totalPrice - discountPrice).toLocaleString()}원</p>
                                                         </div>
                                                     </div>
                                                 </fieldset>

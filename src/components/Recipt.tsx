@@ -11,7 +11,7 @@ export default function Recipt() {
             <div className="fixed inset-0 hidden bg-gray-500 md:block"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
-                    <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-3xl">
+                    <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-xl md:px-4 lg:max-w-2xl">
 
                         <div className="relative flex w-full items-center rounded-2xl overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                             <div className="grid w-full grid-cols-1 items-start gap-x-3 gap-y-8 sm:grid-cols-6 lg:gap-x-8">
