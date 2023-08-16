@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
 
     return (
         <li key={product.name} className="m-4">
-            <div className="rounded-2xl border-2 shadow-xl bg-white hover:ring-4 hover:ring-indigo-500 hover:ring-offset-4 hover:ring-offset-gray-50 focus:ring-4 " onClick={handleOpenModal}>
+            <div className="rounded-2xl border-2 shadow-2xl bg-white hover:ring-4 hover:ring-indigo-500 hover:ring-offset-4 hover:ring-offset-gray-50 focus:ring-4 " onClick={handleOpenModal}>
                 <img
                     src={image}
                     alt="target"

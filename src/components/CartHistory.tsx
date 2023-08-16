@@ -21,14 +21,14 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
 
     return (
         <div>
-            <div className="fixed top-0 right-0 h-full w-1/4 text-black shadow-xl z-10">
+            <div className="fixed top-0 right-0 h-full w-1/4 text-black rounded-l-3xl shadow-2xl z-10">
                 <div className="h-4/5 flex flex-col bg-white rounded-tl-3xl">
 
                     {/* Cart Banner */}
-                    <div className="flex justify-between items-center mt-7 mx-6">
+                    <div className="flex justify-between items-center mt-7 mx-8">
                         <div className="sm:text-xl lg:text-4xl">주문 내역</div>
-                        <button onClick={handleShowStatus} className="flex items-center sm:text-md lg:text-xl">
-                            뒤로 <IoReturnUpForward className="ml-2 text-2xl" />
+                        <button onClick={handleShowStatus} className="flex items-center sm:text-md lg:text-2xl">
+                            뒤로 <IoReturnUpForward className="mx-4 text-2xl" />
                         </button>
                     </div>
                     <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">

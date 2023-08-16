@@ -67,7 +67,7 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
   return (
     <>
       <div className="w-1/6 flex justify-center">
-        <div className="relative bg-white p-4 m-10 rounded-lg shadow-xl w-3/5 flex flex-col justify-between">
+        <div className="relative bg-white p-4 m-10 rounded-lg shadow-2xl w-3/5 flex flex-col justify-between">
           <div className="flex justify-center items-center mb-2">
             <button onClick={() => handleNextButtonClick('prev')}><SlArrowUp /></button>
           </div>
