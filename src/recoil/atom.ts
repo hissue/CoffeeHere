@@ -1,30 +1,18 @@
 import { atom, selector } from 'recoil';
-import { ICartItem } from '../commonTypes';
+import { ICartProduct } from '../commonTypes';
 
-
-export const cartState = atom<ICartItem[]>({
+// Cart History
+export const cartState = atom<ICartProduct[]>({
   key: 'cartState',
   default: []
 });
 
+// Total Price
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const cart = get(cartState);
-    const total = cart.reduce((acc, item) => acc + item.subTotal, 0);
+    const total = cart.reduce((acc, product) => acc + product.subTotal, 0);
     return total;
   }
 });
-
-// import { useRecoilValue } from 'recoil';
-// import { totalPriceSelector } from './selectors'; // 위에서 정의한 selector
-
-// const CartTotal = () => {
-//   const totalPrice = useRecoilValue(totalPriceSelector);
-
-//   return (
-//     <div>
-//       <p>Total Price: {totalPrice}원</p>
-//     </div>
-//   );
-// };

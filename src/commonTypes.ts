@@ -22,11 +22,7 @@ export interface ICoupons {
     price: number;
 }
 
-export interface ISelectedMenu {
-    selectedCategory: string | null;
-}
-
-export interface ICartItem {
+export interface ICartProduct {
     name: string;
     price: number;
     quantity: number;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import image from '../assets/image/coffee.jpg';
-import { IProduct, IOption, ICartItem } from "../commonTypes";
+import { IProduct, IOption, ICartProduct } from "../commonTypes";
 import QuantityButton from './QuantityButton';
 
 // recoil
@@ -52,7 +52,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
     const [quantity, setQuantity] = useState(0);
 
     // recoil
-    const [cart, setCart] = useRecoilState<ICartItem[]>(cartState);
+    const [cart, setCart] = useRecoilState<ICartProduct[]>(cartState);
 
     const handleIncrement = () => {
         setQuantity(quantity + 1);
@@ -80,7 +80,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
 
     const addToCart = () => {
         const subTotal = product.price * quantity + quantity * selectedOptions.reduce((total, option) => total + (option.price || 0), 0);
-        const newItem: ICartItem = {
+        const newProduct: ICartProduct = {
             name: product.name,
             price: product.price,
             quantity: quantity,
@@ -88,7 +88,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
             subTotal: subTotal
         };
 
-        setCart([...cart, newItem]);
+        setCart([...cart, newProduct]);
     };
 
     console.log(cart);
