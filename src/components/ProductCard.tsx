@@ -33,9 +33,14 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     onError={handleImgError}
                     className="rounded-3xl p-5"
                 />
-                <h3 className="text-2xl font-semibold text-gray-600 px-6 pb-4">
-                    {product.name}
-                </h3>
+                <div className='flex justify-between'>
+                    <h3 className="text-2xl font-semibold text-gray-600 px-6 pb-4">
+                        {product.name}
+                    </h3>
+                    <h3 className="text-2xl font-semibold text-gray-600 px-6 pb-4">
+                        {product.price.toLocaleString()}원
+                    </h3>
+                </div>
 
                 {/* Option Modal */}
                 {openOptionModal && (
@@ -85,7 +90,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
             name: product.name,
             price: product.price,
             quantity: quantity,
-            option : selectedOptions,
+            option: selectedOptions,
             subTotal: subTotal
         };
 
@@ -116,7 +121,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                     <section aria-labelledby="information-heading" className="mt-4">
                                         <h3 id="information-heading" className="sr-only">Product information</h3>
                                         <div className="flex items-center justify-end">
-                                            <p className="lg:text-3xl text-gray-900 sm:text-xl">{product.price}원</p>
+                                            <p className="lg:text-3xl text-gray-900 sm:text-xl">{product.price.toLocaleString()}원</p>
                                         </div>
                                     </section>
 
@@ -136,7 +141,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                                             >
                                                                 <p className="text-xl font-semibold ">{option.name}</p>
                                                                 {option.price && (
-                                                                    <p className="mt-1 text-lg">+ {option.price}원</p>
+                                                                    <p className="mt-1 text-lg">+ {option.price.toLocaleString()}원</p>
                                                                 )}
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>

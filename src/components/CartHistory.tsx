@@ -43,7 +43,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                     <div className="ml-7 flex justify-between items-center h-full">
                         Total
                         <div className="sm:text-xl lg:text-3xl mr-7">
-                            {totalPrice}원
+                            {totalPrice.toLocaleString()}원
                         </div>
                     </div>
                     <button onClick={handleModal} className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</button>
@@ -93,7 +93,7 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
                     <div className="flex justify-end text-sm text-gray-400 mb-2" key={op.name}>
                         <div>{op.name}</div>
                         {op.price ? (
-                            <div>{`${op.price * selectedProduct.quantity}원`}</div>
+                            <div>{`${(op.price * selectedProduct.quantity).toLocaleString()}원`}</div>
                         ) : <div>0원</div>}
 
                     </div>
@@ -105,10 +105,10 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
                 />
             </div>
             <div>
-                subTotal : {selectedProduct.subTotal}
+                subTotal : {selectedProduct.subTotal.toLocaleString()}
             </div>
             <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-                {selectedProduct.price * selectedProduct.quantity}원
+                {(selectedProduct.price * selectedProduct.quantity).toLocaleString()}원
             </div>
             <button onClick={handleDelete} className="flex justify-end mr-4 mt-0 rounded-md text-gray-400 hover:text-gray-700">
                 <PiXBold />
@@ -144,9 +144,9 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
             const selectedCoupon = coupons.find(coupon => coupon.id === id);
             if (selectedCoupon) {
                 if (selectedCoupon.id === 'coupon_1') {
-                    setDiscountPrice(selectedCoupon.price);
+                    setDiscountPrice(Math.ceil(selectedCoupon.price));
                 } else {
-                    setDiscountPrice(totalPrice / selectedCoupon.price);
+                    setDiscountPrice(Math.ceil(totalPrice / selectedCoupon.price));
                 }
             }
         }
@@ -154,12 +154,10 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
 
     const handleReciptModal = () => {
         setReciptModal(!reciptModal);
-        // handleModal();
     }
 
     useEffect(() => {
         fetchCoupons();
-        console.log(reciptModal);
     }, []);
 
     return (
@@ -185,7 +183,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                             <div key={coupon.id} className={`relative block cursor-pointer rounded-lg border text-center py-4 ${seletedCouponId === coupon.id ? 'bg-gray-200' : ''
                                                                 }`} onClick={() => handleCouponClick(coupon.id)}>
                                                                 <p className="text-2xl font-semibold">{coupon.name}</p>
-                                                                <p className="text-xl font-semibold">{coupon.id === 'coupon_1' ? `${coupon.price}원` : `${coupon.price}%`}</p>
+                                                                <p className="text-xl font-semibold">{coupon.id === 'coupon_1' ? `${coupon.price.toLocaleString()}원` : `${coupon.price}%`}</p>
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>
                                                         ))}
@@ -204,11 +202,11 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                     <div className="mt-1 mb-5 grid gap-4 grid-rows-2">
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">구매 금액</p>
-                                                            <p className="text-xl font-semibold">{totalPrice}원</p>
+                                                            <p className="text-xl font-semibold">{totalPrice.toLocaleString()}원</p>
                                                         </div>
                                                         <div className="relative grid grid-cols-2 gap-4 items-center">
                                                             <p className="text-xl font-semibold">할인 금액</p>
-                                                            <p className="text-xl font-semibold">- {discountPrice}원</p>
+                                                            <p className="text-xl font-semibold">- {discountPrice.toLocaleString()}원</p>
                                                         </div>
                                                     </div>
 
@@ -217,7 +215,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                             <p className="text-4xl font-semibold">최종 결제 금액</p>
                                                         </div>
                                                         <div className="relative block cursor-pointer text-start py-4">
-                                                            <p className="text-3xl font-semibold">{totalPrice - discountPrice}원</p>
+                                                            <p className="text-3xl font-semibold">{(totalPrice - discountPrice).toLocaleString()}원</p>
                                                         </div>
                                                     </div>
                                                 </fieldset>
