@@ -7,6 +7,11 @@ export const cartState = atom<ICartProduct[]>({
   default: []
 });
 
+export const discountPriceState = atom<number>({
+  key: 'discountPriceState',
+  default: 0,
+});
+
 // Total Price
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
