@@ -114,17 +114,17 @@ function BannerMenu() {
         </svg>
 
         {/* The Others*/}
-        <div className="flex items-center justify-end mr-10">
+        <div className="flex items-center justify-end mr-8">
 
           {/* Home Button */}
-          <div className="p-3 custom-button">
+          <div className="text-5xl p-3 custom-button">
             <a href="/">
               <SlHome />
             </a>
           </div>
 
           {/* Cart Button */}
-          <div className="custom-button">
+          <div className="text-4xl py-4 px-5 m-6 custom-button">
             <button onClick={() => setShowStatus(!showStatus)}>
               <BsCart4 />
             </button>
