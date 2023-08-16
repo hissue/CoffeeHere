@@ -116,25 +116,6 @@ function BannerMenu() {
 
         {/* The Others*/}
         <div className="flex items-center justify-end mr-10">
-          {/* search */}
-          <div className="max-w-2xl mx-2 relative">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              className="block p-4 pl-10 w-full md:w-80 text-md text-gray-900 bg-gray-200 rounded-3xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="커피를 검색해 주세요."
-              required
-            />
-            <button
-              type="submit"
-              className="custom-button absolute sm:text-sm lg:text-md text-white right-2.5 bottom-1.5"
-            >
-              검색
-            </button>
-          </div>
 
           {/* Home Button */}
           <div className="p-3 custom-button">
