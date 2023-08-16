@@ -113,7 +113,7 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                                     <section aria-labelledby="information-heading" className="mt-4">
                                         <h3 id="information-heading" className="sr-only">Product information</h3>
                                         <div className="flex items-center justify-end">
-                                            <p className="lg:text-3xl text-gray-900 sm:text-xl">{product.price.toLocaleString()}원</p>
+                                            <p className="text-3xl text-gray-900  mr-2">{product.price.toLocaleString()}원</p>
                                         </div>
                                     </section>
 

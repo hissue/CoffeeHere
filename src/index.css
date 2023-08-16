@@ -7,7 +7,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background-color: rgba(247, 244, 242, 0.936);
+  background-color: whitesmoke;
   overflow: hidden;
   font-family: 'Hahmlet-Regular';
 }
