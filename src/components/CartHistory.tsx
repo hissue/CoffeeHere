@@ -83,37 +83,56 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
     };
 
     return (
-        <div className="flex justify-between my-6 border-b-2">
-            <div className="mx-3 text-right">
-                <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-                    {selectedProduct.name}
+        <>
+            <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-4 lg:gap-x-8">
+                <div className="sm:col-span-8 lg:col-span-7">
+                    <section aria-labelledby="options-heading" className="mt-10">
+                        <div>
+                            <div className="sm:flex-1 sm:justify-between">
+                                <fieldset>
+                                    <div className="mt-1 mb-1 grid gap-2">
+                                        <div className="relative grid grid-cols-2 gap-2 items-center">
+                                            <p className="text-xl font-semibold">{selectedProduct.name}</p>
+                                            <div className="relative grid grid-cols-2">
+                                                <p className="text-xl font-semibold text-right">{(selectedProduct.price * selectedProduct.quantity).toLocaleString()}원</p>
+                                                <button onClick={handleDelete} className="flex justify-end mr-8 text-3xl text-gray-400 hover:text-gray-700"><PiXBold /></button>
+                                            </div>
+                                        </div>
+                                        {selectedProduct.option?.map((op) => (
+                                            <div className="relative grid grid-cols-2 gap-2 items-center">
+                                                <p className="text-lg">{op.name}</p>
+                                                <div className="relative grid grid-cols-2 items-center">
+                                                    {op.price ? (
+                                                        <p className="text-lg text-right">{`${(op.price * selectedProduct.quantity).toLocaleString()}원`}</p>
+                                                    ) : <p className="text-lg text-right">0원</p>}
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div className="relative grid grid-cols-2 gap-2">
+                                            <QuantityButton
+                                                handleIncProp={() => handleQuantityChange(selectedProduct.quantity + 1)}
+                                                handleDecProp={() => handleQuantityChange(selectedProduct.quantity - 1)}
+                                                quantityProp={selectedProduct.quantity}
+                                            />
+
+                                            <div className="relative grid grid-cols-2 items-center">
+                                                <p className="text-2xl font-semibold text-right whitespace-nowrap">{selectedProduct.subTotal.toLocaleString()}원</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+
+                            <div className="grid grid-col-2 gap-2 border-b-2">
+
+                            </div>
+                        </div>
+                    </section>
                 </div>
+            </div>
+        </>
 
-                {selectedProduct.option?.map((op) => (
-                    <div className="flex justify-end text-sm text-gray-400 mb-2" key={op.name}>
-                        <div>{op.name}</div>
-                        {op.price ? (
-                            <div>{`${(op.price * selectedProduct.quantity).toLocaleString()}원`}</div>
-                        ) : <div>0원</div>}
-
-                    </div>
-                ))}
-                <QuantityButton
-                    handleIncProp={() => handleQuantityChange(selectedProduct.quantity + 1)}
-                    handleDecProp={() => handleQuantityChange(selectedProduct.quantity - 1)}
-                    quantityProp={selectedProduct.quantity}
-                />
-            </div>
-            <div>
-                subTotal : {selectedProduct.subTotal.toLocaleString()}
-            </div>
-            <div className="text-gray-600 mb-1 sm:text-sm lg:text-xl">
-                {(selectedProduct.price * selectedProduct.quantity).toLocaleString()}원
-            </div>
-            <button onClick={handleDelete} className="flex justify-end mr-4 mt-0 rounded-md text-gray-400 hover:text-gray-700">
-                <PiXBold />
-            </button>
-        </div >
     );
 }
 
