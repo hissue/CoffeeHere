@@ -76,13 +76,12 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
               {categories.map((category) => (
                 <li
                   key={category.name}
-                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center hover:border-gray-400 ${selectedCategory === category.id ? 'bg-gray-200' : ''
+                  className={`p-3 border-2 rounded-xl my-3 cursor-pointer flex items-center justify-center hover:border-gray-400 ${selectedCategory === category.id ? 'bg-indigo-500 text-white' : ''
                     }`}
                   onClick={() => handleCategoryClick(category.id)}
                 >
-                  <div className="text-center">
-                    <SiCoffeescript className="sm:text-xl md:text-2xl lg:text-5xl" />
-                    <h3 className="sm:text-xs md:text-sm lg:text-base">{category.name}</h3>
+                  <div className="text-center my-7">
+                    <h3 className="sm:text-lg md:text-xl lg:text-2xl font-bold">{category.name}</h3>
                   </div>
                 </li>
               ))}
