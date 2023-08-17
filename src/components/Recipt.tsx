@@ -9,7 +9,7 @@ export default function Recipt() {
     return (
         <div className="relative z-10" role="dialog" aria-modal="true">
             <div className="fixed inset-0 hidden bg-gray-500 md:block"></div>
-            <div className="fixed inset-0 z-10 overflow-y-hidden">
+            <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
                     <div className="flex w-full transform text-left text-base transition md:my-8 md:max-w-xl md:px-4 lg:max-w-2xl">
 
