@@ -34,10 +34,10 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     className="rounded-3xl p-5"
                 />
                 <div className='flex justify-between'>
-                    <h3 className="whitespace-nowrap text-base font-semibold text-gray-600 px-6 pb-4">
+                    <h3 className="whitespace-nowrap sm:text-sm md:text-base lg:text-lg font-semibold text-gray-600 px-6 pb-4">
                         {product.name}
                     </h3>
-                    <h3 className="whitespace-nowrap text-base font-semibold text-gray-600 px-6 pb-4">
+                    <h3 className="whitespace-nowrap sm:text-sm md:text-base lg:text-lg  text-base font-semibold text-gray-600 px-6 pb-4">
                         {product.price.toLocaleString()}원
                     </h3>
                 </div>
