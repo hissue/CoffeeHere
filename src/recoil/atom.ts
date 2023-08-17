@@ -1,12 +1,13 @@
 import { atom, selector } from 'recoil';
 import { ICartProduct } from '../commonTypes';
 
-// Cart History
+// Products in cart
 export const cartState = atom<ICartProduct[]>({
   key: 'cartState',
   default: []
 });
 
+// Discount Price
 export const discountPriceState = atom<number>({
   key: 'discountPriceState',
   default: 0,

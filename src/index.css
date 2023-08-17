@@ -19,7 +19,7 @@ body,
   font-style: normal;
 }
 
-/* adding components classes */
+/* Custom Button */
 @layer components {
   .custom-button {
     color: white;
