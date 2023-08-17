@@ -40,7 +40,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                     </div>
                 </div>
                 <div className="relative h-1/5 flex flex-col justify-end rounded-bl-3xl custom-pay-color">
-                    <div className="ml-7 flex justify-between items-center h-full">
+                    <div className="sm:text-xl lg:text-3xl ml-7 flex justify-between items-center h-full">
                         총 합계
                         <div className="sm:text-xl lg:text-3xl mr-7">
                             {totalPrice.toLocaleString()}원
