@@ -82,7 +82,7 @@ function CategoryMenu({ handleCategoryClick, selectedCategory }: { handleCategor
                   onClick={() => handleCategoryClick(category.id)}
                 >
                   <div className="text-center my-7">
-                    <h3 className="sm:text-lg md:text-xl lg:text-2xl font-bold">{category.name}</h3>
+                    <h3 className="sm:text-base md:text-lg lg:text-xl font-bold">{category.name}</h3>
                   </div>
                 </li>
               ))}
@@ -125,14 +125,14 @@ function BannerMenu() {
         <div className="flex items-center justify-end mr-8">
 
           {/* Home Button */}
-          <div className="text-5xl p-3 custom-button">
+          <div className="text-4xl p-2 custom-button">
             <a href="/">
               <SlHome />
             </a>
           </div>
 
           {/* Cart Button */}
-          <div className="text-4xl py-4 px-5 m-6 custom-button">
+          <div className="text-3xl py-3 px-4 m-6 custom-button">
             <button onClick={() => setShowStatus(!showStatus)}>
               <BsCart4 />
             </button>

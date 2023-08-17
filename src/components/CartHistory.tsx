@@ -26,7 +26,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
 
                     {/* Cart Banner */}
                     <div className="flex justify-between items-center mt-7 mx-8">
-                        <div className="sm:text-xl lg:text-4xl">주문 내역</div>
+                        <div className="sm:text-lg lg:text-2xl">주문 내역</div>
                         <button onClick={handleShowStatus} className="flex items-center sm:text-md lg:text-2xl">
                             뒤로 <IoReturnUpForward className="mx-4 text-2xl" />
                         </button>

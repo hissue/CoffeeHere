@@ -7,7 +7,7 @@ export default function Recipt() {
     const totalPrice = useRecoilValue(totalPriceSelector);
 
     return (
-        <div className="relative z-10" role="dialog" aria-modal="true">
+        <div className="relative z-10 overflow-hidden" role="dialog" aria-modal="true">
             <div className="fixed inset-0 hidden bg-gray-500 md:block"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
