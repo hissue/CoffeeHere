@@ -87,9 +87,33 @@
 - 할인 적용 시, 모든 값은 올림 처리
 
 ### 설치 및 실행
+1. node 설치
+<a href="https://nodejs.org/en">https://nodejs.org/en</a>
 
+2. node 설치 확인
+```
+node -v
+npx
+```
 
-### 파일 구조도
+3. 파일 다운로드
+```
+git clone https://github.com/swssue/paySystem.git
+```
+
+4. 의존성 설치
+```
+cd paySystem
+# npx create-react-app paySystem --template typescript 
+npm install
+```
+
+5. 실행
+```
+npm run start
+```
+
+### 📂 파일 구조도
 ```
 📦src
  ┣ 📂assets //정적 파일
@@ -128,6 +152,8 @@
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Frontend**              | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/TailwindCss-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"> <img src="https://img.shields.io/badge/CSS-5A0FC8?style=for-the-badge&logo=pwa&logoColor=write"> <img src="https://img.shields.io/badge/recoil-362d59?style=for-the-badge&logo=recoil&logoColor=white">    |                                                                                  
 | **Infrastructure/DevOps** |  <img src="https://img.shields.io/badge/AWS_EC2-F1680D?style=for-the-badge&logo=amazonaws&logoColor=white">|
+
+<br />
 
 ### 🧩 서비스 구조도
 <img src="https://github.com/po-do/Poki/assets/126448936/ab6472df-b2d4-4e80-8ea4-6dafe258ce1c" width="60%" alt="Service Structure">
