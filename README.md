@@ -86,14 +86,41 @@
 - 금액이 없는 데이터 기본값 0원
 - 할인 적용 시, 모든 값은 올림 처리
 
-<br />
-
 ### 설치 및 실행
 
 
 ### 파일 구조도
-
-
+```
+📦src
+ ┣ 📂assets //정적 파일
+ ┃ ┗ 📂image
+ ┃ ┃ ┣ 📜coffee.jpg
+ ┃ ┃ ┗ 📜Logo.png
+ ┣ 📂components // 재사용 혹은 분할 된 컴포넌트
+ ┃ ┣ 📜CartHistory.tsx
+ ┃ ┣ 📜ProductCard.tsx
+ ┃ ┣ 📜QuantityButton.tsx
+ ┃ ┗ 📜Recipt.tsx
+ ┣ 📂mock // REST API
+ ┃ ┣ 📂rest 
+ ┃ ┃ ┣ 📂data
+ ┃ ┃ ┃ ┣ 📜categories.ts
+ ┃ ┃ ┃ ┣ 📜coupons.ts
+ ┃ ┃ ┃ ┗ 📜products.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┗ 📜responses.ts
+ ┃ ┣ 📜common.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂Page // 페이지
+ ┣ 📂recoil // 전역 상태 관리
+ ┃ ┗ 📜atom.ts
+ ┣ 📜App.tsx
+ ┣ 📜commonTypes.ts // 통합 타입 관리
+ ┣ 📜custom.d.ts
+ ┣ 📜index.css
+ ┣ 📜index.tsx
+ ┗ 📜MockSamples.tsx
+```
 
 ### 📚 기술스택
 
