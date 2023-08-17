@@ -77,7 +77,9 @@
 | **Infrastructure/DevOps** |  <img src="https://img.shields.io/badge/AWS_EC2-F1680D?style=for-the-badge&logo=amazonaws&logoColor=white">|
 
 ### 🧩 서비스 구조도
+<img src="https://github.com/po-do/Poki/assets/126448936/ab6472df-b2d4-4e80-8ea4-6dafe258ce1c" width="60%" alt="Service Structure">
 
+<br />
 
 ## 👨‍👨‍👦‍👦 팀원 소개
 <table>
