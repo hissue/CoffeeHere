@@ -86,7 +86,7 @@
 - 금액이 없는 데이터 기본값 0원
 - 할인 적용 시, 모든 값은 올림 처리
 
-### 설치 및 실행
+### 📢 설치 및 실행
 1. node 설치
 <a href="https://nodejs.org/en">https://nodejs.org/en</a>
 
