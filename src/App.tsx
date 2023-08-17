@@ -125,14 +125,14 @@ function BannerMenu() {
         <div className="flex items-center justify-end mr-8">
 
           {/* Home Button */}
-          <div className="text-4xl p-2 custom-button">
+          <div className="text-5xl p-3 custom-button">
             <a href="/">
               <SlHome />
             </a>
           </div>
 
           {/* Cart Button */}
-          <div className="text-3xl py-3 px-4 m-6 custom-button">
+          <div className="text-4xl py-4 px-5 m-6 custom-button">
             <button onClick={() => setShowStatus(!showStatus)}>
               <BsCart4 />
             </button>

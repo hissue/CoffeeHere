@@ -108,12 +108,12 @@ function ProductOption({ options, product, handleModal }: { options: IOption[], 
                             <div className="justify-between grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-3 lg:gap-x-8">
 
                                 <div className="sm:col-span-8 lg:col-span-7">
-                                    <h2 className="text-3xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
+                                    <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
 
                                     <section aria-labelledby="information-heading" className="mt-4">
                                         <h3 id="information-heading" className="sr-only">Product information</h3>
                                         <div className="flex items-center justify-end">
-                                            <p className="text-3xl text-gray-900  mr-2">{product.price.toLocaleString()}원</p>
+                                            <p className="text-xl text-gray-900  mr-2">{product.price.toLocaleString()}원</p>
                                         </div>
                                     </section>
 
