@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "GENERATE_SOURCEMAP=false npx react-scripts build"
   },
   "dependencies": {
     "@types/jest": "^29.5.3",
