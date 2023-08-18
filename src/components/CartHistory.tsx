@@ -10,11 +10,14 @@ import { ICartProduct, IOption, ICoupons } from "../commonTypes";
 import QuantityButton from "./QuantityButton";
 import Recipt from "./Recipt";
 
+// Products in cart
 export default function CartHistory({ handleShowStatus }: { handleShowStatus: () => void }) {
+    // Global value
     const cart = useRecoilValue(cartState);
     const totalPrice = useRecoilValue(totalPriceSelector);
-    const [showModal, setShowModal] = useState<boolean>(false);
 
+    // Pay modal
+    const [showModal, setShowModal] = useState<boolean>(false);
     const handleModal = () => {
         setShowModal(!showModal);
     }
@@ -31,14 +34,16 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                             뒤로 <IoReturnUpForward className="mx-4 text-2xl" />
                         </button>
                     </div>
-                    <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">
 
-                        {/* Selected Products */}
+                    {/* Selected Products */}
+                    <div className="ml-7 my-2 h-full overflow-y-scroll overflow-x-hidden">
                         {cart.map((product, index) => (
                             <SelectedProduct key={`cart_${product.name}_${index}`} selectedProduct={product} />
                         ))}
                     </div>
                 </div>
+
+                {/* Total Price */}
                 <div className="relative h-1/5 flex flex-col justify-end rounded-bl-3xl custom-pay-color">
                     <div className="sm:text-xl lg:text-3xl ml-7 flex justify-between items-center h-full">
                         총 합계
@@ -46,6 +51,7 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
                             {totalPrice.toLocaleString()}원
                         </div>
                     </div>
+                    {/* Pay button */}
                     <button onClick={handleModal} className="mx-7 mb-5 mt-3 custom-button flex justify-center">결제</button>
                     {showModal && (
                         <Pay totalPrice={totalPrice} handleModal={handleModal} />
@@ -59,25 +65,26 @@ export default function CartHistory({ handleShowStatus }: { handleShowStatus: ()
 
 // Selected Products
 function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct }) {
+    // Products in cart
     const [myList, setMyList] = useRecoilState(cartState);
 
-    // recoil Delete
+    // Delete global value 
     const handleDelete = () => {
         const updatedList = myList.filter(product => product !== selectedProduct);
         setMyList(updatedList);
     };
 
-    // Recoil Change
+    // Change global value 
     const handleQuantityChange = (newQuantity: number) => {
         const updatedCart = myList.map(cartProduct =>
             cartProduct.name === selectedProduct.name
                 ? { ...cartProduct, quantity: newQuantity, subTotal: selectedProduct.price * newQuantity + newQuantity * calculateOptionTotal(selectedProduct.option || []) }
                 : cartProduct
         );
-
         setMyList(updatedCart);
     };
 
+    // Total of options for one item
     const calculateOptionTotal = (options: IOption[]) => {
         return options.reduce((total, option) => total + (option.price || 0), 0);
     };
@@ -93,11 +100,13 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
                                     <div className="mt-1 mb-1 grid gap-2">
                                         <div className="relative grid grid-cols-2 gap-2 items-center">
                                             <p className="text-xl font-semibold">{selectedProduct.name}</p>
+                                            {/* Delete a product */}
                                             <div className="relative grid grid-cols-2">
                                                 <p className="text-xl font-semibold text-right">{(selectedProduct.price * selectedProduct.quantity).toLocaleString()}원</p>
                                                 <button onClick={handleDelete} className="flex justify-end mr-8 text-3xl text-gray-400 hover:text-gray-700"><PiXBold /></button>
                                             </div>
                                         </div>
+                                        {/* Option total */}
                                         {selectedProduct.option?.map((op) => (
                                             <div className="relative grid grid-cols-2 gap-2 items-center">
                                                 <p className="text-lg">{op.name}</p>
@@ -108,13 +117,14 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
                                                 </div>
                                             </div>
                                         ))}
+                                        {/* Increase/Decrease quantity */}
                                         <div className="relative grid grid-cols-2 gap-2">
                                             <QuantityButton
                                                 handleIncProp={() => handleQuantityChange(selectedProduct.quantity + 1)}
                                                 handleDecProp={() => handleQuantityChange(selectedProduct.quantity - 1)}
                                                 quantityProp={selectedProduct.quantity}
                                             />
-
+                                            {/* A product total */}
                                             <div className="relative grid grid-cols-2 items-center">
                                                 <p className="text-2xl font-semibold text-right whitespace-nowrap">{selectedProduct.subTotal.toLocaleString()}원</p>
                                             </div>
@@ -123,9 +133,7 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
 
                                 </fieldset>
                             </div>
-
                             <div className="grid grid-col-2 gap-2 border-b-2">
-
                             </div>
                         </div>
                     </section>
@@ -136,12 +144,16 @@ function SelectedProduct({ selectedProduct }: { selectedProduct: ICartProduct })
     );
 }
 
+// Pay Modal
 function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () => void }) {
+
+    // Recipt Modal
+    const [reciptModal, setReciptModal] = useState<boolean>(false);
+
+    // Coupon value
     const [coupons, setCoupons] = useState<ICoupons[]>([]);
     const [seletedCouponId, setSelectedCouponId] = useState<string>("");
     const [discountPrice, setDiscountPrice] = useRecoilState(discountPriceState);
-
-    const [reciptModal, setReciptModal] = useState<boolean>(false);
 
     // Coupons Rest API
     const fetchCoupons = async () => {
@@ -154,6 +166,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
         }
     }
 
+    // Select coupon
     const handleCouponClick = (id: string) => {
         setSelectedCouponId(id);
 
@@ -171,6 +184,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
         }
     };
 
+    // Handle recipt modal
     const handleReciptModal = () => {
         setReciptModal(!reciptModal);
     }
@@ -189,12 +203,12 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                         <div className="relative flex w-full items-center rounded-2xl overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                             <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-6 lg:gap-x-8">
                                 <div className="sm:col-span-8 lg:col-span-7">
-
                                     <h2 className="text-5xl font-bold text-gray-900 sm:pr-12">최종 결제</h2>
                                     <section aria-labelledby="options-heading" className="mt-10">
                                         <h3 id="options-heading" className="sr-only">Product options</h3>
                                         <div>
                                             <div className="sm:flex-1 sm:justify-between">
+                                                {/* Select coupon */}
                                                 <fieldset>
                                                     <legend className="block mb-3 text-3xl font-bold text-gray-700">할인 선택</legend>
                                                     <div className="mt-1 mb-5 grid gap-4 grid-cols-3 ">
@@ -206,7 +220,6 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                                 <div className="pointer-events-none absolute -inset-px rounded-lg" aria-hidden="true"></div>
                                                             </div>
                                                         ))}
-
                                                         <div key={"notCoupon"} className={`relative block cursor-pointer rounded-lg border text-center py-4 hover:border-gray-500 ${seletedCouponId === "notCoupon" ? 'bg-gray-200' : ''
                                                             }`} onClick={() => handleCouponClick("notCoupon")}>
                                                             <p className="text-2xl font-semibold">선택 안함</p>
@@ -216,6 +229,7 @@ function Pay({ totalPrice, handleModal }: { totalPrice: number, handleModal: () 
                                                     </div>
                                                 </fieldset>
 
+                                                {/* Billing details */}
                                                 <fieldset>
                                                     <legend className="block mb-5 text-3xl font-bold text-gray-700">결제 금액</legend>
                                                     <div className="mt-1 mb-5 grid gap-4 grid-rows-2">
