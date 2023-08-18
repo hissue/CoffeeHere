@@ -1,9 +1,7 @@
 ## 💡 프로젝트 제목
 ### 💳 페이히어 : 커피 히어 - 사용자 맞춤형 커피 포스 서비스
 
-<br>
-<p align="center"><img src= "https://github.com/swssue/paySystem/blob/main/doc/Logo.png"  height="50%"></p>
-<br>
+![Logo](https://github.com/hissue/CoffeeHere/assets/68486112/e0355be9-09d5-4ecf-b9b8-4a64bd7a04e1)
 
 - **CoffeeHere**는 어디서든 간단한 단말기를 포스기를 관리할 수 있는 서비스입니다.  
 - 멀리 있는 가게와도 OK! 주문, 결제, 영수증까지 포스 화면에서 통합 관리하세요.
