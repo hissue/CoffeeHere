@@ -2,7 +2,7 @@
 ### 💳 페이히어 : 커피 히어 - 사용자 맞춤형 커피 포스 서비스
 
 <br>
-<p align="center"><img src= "https://github.com/swssue/paySystem/blob/main/doc/Logo.png"  height="50%"></p>
+![Logo](https://github.com/hissue/CoffeeHere/assets/68486112/e0355be9-09d5-4ecf-b9b8-4a64bd7a04e1)
 <br>
 
 - **CoffeeHere**는 어디서든 간단한 단말기를 포스기를 관리할 수 있는 서비스입니다.  
